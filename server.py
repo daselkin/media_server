@@ -22,7 +22,7 @@ class TriagedReuqestHandler:
 		self.response_headers = {}
 		self.response_text = ""
 
-	def execute(self) -> None:
+	def execute(self):
 		raise NotImplementedError
 
 
@@ -33,7 +33,7 @@ class PlayerRequesHandler(TriagedReuqestHandler):
 	pass
 
 class YouTubeRequestHandler(TriagedReuqestHandler):
-	def execute(self) -> None:
+	def execute(self):
 		try:
 			downloaded_file = download_music_from_youtube(self.path[1:], YT_DOWNLOAD_PATH)
 			AudioController().load_file(os.path.join(YT_DOWNLOAD_PATH, downloaded_file))
@@ -50,13 +50,14 @@ class MediaBoxRequestHandler(BaseHTTPRequestHandler):
 	# Determine what basic kind of request this is
 	def triage(self):
 		parsed_path = self.path.split('/')[1:]
+		logging.debug(parsed_path)
 		if len(parsed_path) == 0:
 			login.debug("Empty request received")
 			return EmptyRequestHandler
-		elif parsed_path[1] == 'player':
+		elif parsed_path[0] == 'player':
 			logging.debug ("Player control request received")
 			return PlayerRequesHandler
-		elif parsed_path[1] in ['http', 'https']:
+		elif parsed_path[0] in ['http', 'https']:
 			logging.debug("Youtube request detected")
 			return YouTubeRequestHandler
 		else:
@@ -69,7 +70,8 @@ class MediaBoxRequestHandler(BaseHTTPRequestHandler):
 		logging.info(f"Request received for {self.path} from {self.client_address}")
 		
 		# Triage
-		sub_handler = self.triage()
+		sub_handler_type = self.triage()
+		sub_handler = sub_handler_type(self)
 		sub_handler.execute()
 
 		# Send response
