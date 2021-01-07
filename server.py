@@ -23,6 +23,15 @@ class TriagedReuqestHandler:
 		self.response_text = ""
 
 	def execute(self):
+		try:
+			self._execute()
+		except Exception as e:
+			logging.exception(e)
+			self.response = 400
+			self.response_headers['Content-Type'] = 'text/html; charset=UTF-8'
+			self.response_text = f"{e}"
+	
+	def _execute(self):
 		raise NotImplementedError
 
 
@@ -33,14 +42,10 @@ class PlayerRequesHandler(TriagedReuqestHandler):
 	pass
 
 class YouTubeRequestHandler(TriagedReuqestHandler):
-	def execute(self):
-		try:
-			downloaded_file = download_music_from_youtube(self.path[1:], YT_DOWNLOAD_PATH)
-			AudioController().load_file(os.path.join(YT_DOWNLOAD_PATH, downloaded_file))
-		except Exception as e:
-			logging.exception(e)
-
-
+	def _execute(self):
+		downloaded_file = download_music_from_youtube(self.path[1:], YT_DOWNLOAD_PATH)
+		AudioController().load_file(os.path.join(YT_DOWNLOAD_PATH, downloaded_file))
+ 
 class UnknownRequestHandler(TriagedReuqestHandler):
 	pass
 
@@ -57,7 +62,7 @@ class MediaBoxRequestHandler(BaseHTTPRequestHandler):
 		elif parsed_path[0] == 'player':
 			logging.debug ("Player control request received")
 			return PlayerRequesHandler
-		elif parsed_path[0] in ['http', 'https']:
+		elif parsed_path[0] in ['http:', 'https:']:
 			logging.debug("Youtube request detected")
 			return YouTubeRequestHandler
 		else:
@@ -77,7 +82,7 @@ class MediaBoxRequestHandler(BaseHTTPRequestHandler):
 		# Send response
 		self.send_response(sub_handler.response)
 		for key, value in sub_handler.response_headers.items():
-			self.send_headers(key, value)
+			self.send_header(key, value)
 		self.end_headers()
 		self.wfile.write(bytes(sub_handler.response_text, "utf-8"))
 
