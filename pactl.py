@@ -5,7 +5,7 @@ import logging
 VOLUME_INTERVAL = 10
 
 class PulseAudioController:
-	def _execute_pactl(self, flags: list[str]) -> None:
+	def _execute_pactl(self, flags: list) -> None:
 		logging.debug(f'Executing pactl with flags {flags}')
 		run(['pactl'] + flags)
 
@@ -31,5 +31,3 @@ class PulseAudioController:
 	def mute_unmute(self) -> None:
 		self._execute_pactl(['set-sink-mute', '@DEFAULT_SINK@', 'toggle'])
 
-
-audacious = AudaciousController()
