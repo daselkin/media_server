@@ -1,7 +1,7 @@
 from .triaged_request import TriagedReuqestHandler
 import logging
 
-from youtube import download_music_from_youtube
+from external_sources.youtube import download_music_from_youtube
 from playback_handlers.audio import AudioController
 
 from params.server import YT_DOWNLOAD_PATH
