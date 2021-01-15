@@ -1,5 +1,5 @@
-from .triaged_request import LANDING_PAGE_HTML
-from params,assets import landing_page_html
+from .triaged_request import TriagedReuqestHandler
+from params.assets import LANDING_PAGE_HTML
 import logging
 
 class EmptyRequestHandler(TriagedReuqestHandler):
@@ -8,4 +8,4 @@ class EmptyRequestHandler(TriagedReuqestHandler):
 
 	self.response = 200
 	self.response_headers['Content-Type'] = 'text/html; charset=UTF-8'
-	self.response_text = LANDING_PAGE_HTML
+	self.response_text = LANDING_PAGE_HTMLs
