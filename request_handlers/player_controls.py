@@ -49,7 +49,7 @@ PLAYABACK_COMMANDS = [
 
 class PlayerControlsRequestHandler(TriagedReuqestHandler):
 	debug_message = "Player control request received"
-	path_regex_pattern = r"/player/*"
+	path_regex_pattern = r"/player/"
 
 	def interpret_command(self):
 		for command in PLAYABACK_COMMANDS:
