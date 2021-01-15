@@ -1,1 +1,1 @@
-landing_page_html =
+LANDING_PAGE_HTML = open('assets/index.html', 'r').read()
