@@ -61,4 +61,5 @@ class PlayerControlsRequestHandler(TriagedReuqestHandler):
 		command = self.interpret_command()
 		if command is not None:
 			command.function()
-			
+		else:
+			raise AssertionError(f"Unknwon command {self.request.path}")
