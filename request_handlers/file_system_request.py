@@ -55,7 +55,10 @@ class FileSystemRequestHandler(TriagedReuqestHandler):
 		self.response_headers['Content-Type'] = 'text/html; charset=UTF-8'
 		self.response_text = f"""
 		<html>
-			<head><title>Browsing Mediabox</title></head>
+			<head>
+				<title>Browsing Mediabox</title>
+				<link href="/assets/favicon.ico" rel="icon">
+			</head>
 			<body><ul>
 			{directory_contents_formatted}
 			</ul></body>

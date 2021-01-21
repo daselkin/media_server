@@ -8,6 +8,7 @@ import logging
 import re
 
 from .empty_request import EmptyRequestHandler
+from .asset_handler import AssetRequestHandler
 from .play_tracks import PlayTracksRequestHandler
 from .file_system_request import FileSystemRequestHandler
 from .unknown_request import UnknownRequestHandler
@@ -16,6 +17,7 @@ from .youtube_handler import YouTubeRequestHandler
 
 TRIAGE_ORDER = (
 	EmptyRequestHandler,
+	AssetRequestHandler,
 	PlayTracksRequestHandler,
 	FileSystemRequestHandler,	
 	PlayerControlsRequestHandler,
@@ -45,7 +47,10 @@ class MediaBoxRequestHandler(BaseHTTPRequestHandler):
 		for key, value in sub_handler.response_headers.items():
 			self.send_header(key, value)
 		self.end_headers()
-		self.wfile.write(bytes(sub_handler.response_text, "utf-8"))
+		if sub_handler.response_bytes is None:
+			self.wfile.write(bytes(sub_handler.response_text, "utf-8"))
+		else:
+			self.wfile.write(sub_handler.response_bytes)	
 
 		# Close connection. Goodbye!
 		self.close_connection = True

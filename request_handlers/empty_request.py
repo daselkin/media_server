@@ -9,4 +9,4 @@ class EmptyRequestHandler(TriagedReuqestHandler):
 	def _execute(self):
 		self.response = 200
 		self.response_headers['Content-Type'] = 'text/html; charset=UTF-8'
-		self.response_text = LANDING_PAGE_HTMLs
+		self.response_text = LANDING_PAGE_HTML
