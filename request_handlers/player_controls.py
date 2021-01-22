@@ -18,31 +18,31 @@ PlaybackCommand = namedtuple(
 PLAYABACK_COMMANDS = [
 	PlaybackCommand(
 		r"play",
-		AudioController.play,
+		AudioController().play,
 		"Play command received"
 	),
 
 	PlaybackCommand(
 		r"stop",
-		AudioController.stop,
+		AudioController().stop,
 		"Stop command received"
 	),
 
 	PlaybackCommand(
 		r"pause",
-		AudioController.pause,
+		AudioController().pause,
 		"Pause command received"
 	),
 
 	PlaybackCommand(
 		r"next",
-		AudioController.skip_forward,
+		AudioController().skip_forward,
 		"Skip forward command received"
 	),
 
 	PlaybackCommand(
 		r"prev",
-		AudioController.skip_back,
+		AudioController().skip_back,
 		"Skip back command received"
 	),
 ]
