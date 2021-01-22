@@ -12,14 +12,23 @@
 	</head>
 	<body>
 		<div class="btn btn-info btn-lg" style="width:100%"> 
-		<a href="/player/prev" class="btn btn-info btn-lg">⏮</a>
-		<a href="/player/pause" class="btn btn-info btn-lg">⏹</a>
-		<a href="/player/play" class="btn btn-info btn-lg">▶️</a>
-		<a href="/player/next" class="btn btn-info btn-lg">⏭</a>
+		<button class="btn btn-info btn-lg" onclick="httpGetAsyncNoCallback(&quot;/player/volume_down&quot;)">🔉</button>
+		<button class="btn btn-info btn-lg" onclick="httpGetAsyncNoCallback(&quot;/player/prev&quot;)">⏮</button>
+		<button class="btn btn-info btn-lg" onclick="httpGetAsyncNoCallback(&quot;/player/pause&quot;)">⏹</button>
+		<button class="btn btn-info btn-lg" onclick="httpGetAsyncNoCallback(&quot;/player/play&quot;)">▶️</button>
+		<button class="btn btn-info btn-lg" onclick="httpGetAsyncNoCallback(&quot;/player/next&quot;)">⏭</button>
+		<button class="btn btn-info btn-lg" onclick="httpGetAsyncNoCallback(&quot;/player/volume_up&quot;)">🔊</button>
 		</div>
 
 		<div style="text-align: center">
 		<a href="/browse/">BROWSE MUSIC LIBRARY</a>
 		</div>
+	<script>
+		function httpGetAsyncNoCallback(url) {
+			var httpRequest = new XMLHttpRequest();
+			httpRequest.open('GET', url, true);
+			httpRequest.send(null);
+		};
+	</script>
 	</body>
 </html>
