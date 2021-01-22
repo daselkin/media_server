@@ -53,7 +53,7 @@ class PlayerControlsRequestHandler(TriagedReuqestHandler):
 
 	def interpret_command(self):
 		for command in PLAYABACK_COMMANDS:
-			if re.match(path_regex_pattern+command.regex, self.request.path):
+			if re.match(self.path_regex_pattern+command.regex, self.request.path):
 				return command
 		return None
 
