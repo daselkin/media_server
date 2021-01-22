@@ -45,6 +45,16 @@ PLAYABACK_COMMANDS = [
 		AudioController().skip_back,
 		"Skip back command received"
 	),
+	PlaybackCommand(
+		r"volume_up",
+		AudioController().volume_up,
+		"Volume up command received",
+	),
+	PlaybackCommand(
+		r"volume_down",
+		AudioController().volume_down,
+		"Volume down command received"
+	),
 ]
 
 class PlayerControlsRequestHandler(TriagedReuqestHandler):
@@ -61,5 +71,6 @@ class PlayerControlsRequestHandler(TriagedReuqestHandler):
 		command = self.interpret_command()
 		if command is not None:
 			command.function()
+			self.response=200
 		else:
 			raise AssertionError(f"Unknwon command {self.request.path}")
