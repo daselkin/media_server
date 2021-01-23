@@ -6,6 +6,7 @@ import urllib.parse
 from params.server import MUSIC_LIBRARY_PATH
 from params.assets import (
 	BROWSE_MEDIA_PAGE_HTML,
+	MEDIA_LIBRARY_ITEM,
 	MEDIA_ITEM,
 )
 
@@ -14,7 +15,7 @@ class FileSystemRequestHandler(TriagedReuqestHandler):
 	path_regex_pattern = r"/browse/"
 
 	def format_directory(self, directory_name):
-		return MEDIA_ITEM.format(
+		return MEDIA_LIBRARY_ITEM.format(
 			link_url=f"{self.path_regex_pattern}{self.unquoted_path}{directory_name}/",
 			link_text=f"{directory_name}/"
 		)

@@ -16,3 +16,6 @@ class PlayTracksRequestHandler(TriagedReuqestHandler):
 		self.filepath = os.path.join(MUSIC_LIBRARY_PATH, self.unquoted_path)
 		logging.debug(f"Playing {self.filepath}")
 		AudioController().load_file(self.filepath)
+		self.response=200
+		self.response_headers['Content-Type'] = 'text/plain-text; charset=UTF-8'
+		self.response_text=f"Now playing {self.filepath}"
