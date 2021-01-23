@@ -57,6 +57,7 @@ class FileSystemRequestHandler(TriagedReuqestHandler):
 		<html>
 			<head>
 				<title>Browsing Mediabox</title>
+				<link href="/assets/factory.css" rel="stylesheet">
 				<link href="/assets/favicon.ico" rel="icon">
 			</head>
 			<body><ul>
