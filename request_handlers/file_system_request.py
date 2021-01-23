@@ -10,25 +10,25 @@ class FileSystemRequestHandler(TriagedReuqestHandler):
 	path_regex_pattern = r"/browse/"
 
 	def format_directory(self, directory_name):
-		return f"""<li>
-			<a href="{self.path_regex_pattern}{self.unquoted_path}{directory_name}/">
+		return f"""<p>
+			<a class="btn btn-primary" href="{self.path_regex_pattern}{self.unquoted_path}{directory_name}/">
 			{directory_name}/
 			</a>
-			</li>"""
+			</p>"""
 
 	def format_file(self, file_name):
-		return f"""<li>
-			<a href="/play/{self.unquoted_path}/{file_name}">
+		return f"""<p>
+			<a class="btn btn-primary" href="/play/{self.unquoted_path}/{file_name}">
 			{file_name}
 			</a>
-			</li>"""
+			</p>"""
 
 	def format_play_all(self):
-		return f"""<li>
-			<a href="/play/{self.unquoted_path}">
-			!----PLAY ALL FILES----!
+		return f"""<p>
+			<a class="btn btn-primary" href="/play/{self.unquoted_path}">
+			🎶🎶🎶 PLAY ALL FILES 🎶🎶🎶
 			</a>
-			</li>"""
+			</p>"""
 
 	def _execute(self):
 		self.unquoted_path = urllib.parse.unquote(self.request.path[len(self.path_regex_pattern):])
@@ -60,9 +60,11 @@ class FileSystemRequestHandler(TriagedReuqestHandler):
 				<link href="/assets/factory.css" rel="stylesheet">
 				<link href="/assets/favicon.ico" rel="icon">
 			</head>
-			<body><ul>
+			<body>
+			<div filelist>
 			{directory_contents_formatted}
-			</ul></body>
+			</div filelist>
+			</body>
 		</html>
 		"""
 
