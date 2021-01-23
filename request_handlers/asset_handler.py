@@ -4,9 +4,10 @@ import logging
 import os
 import urllib
 
-ASSET_CONTENT_TYPE_BY_PREFIX = [
+ASSET_CONTENT_TYPE_BY_SUFFIX = [
 	('.ico', 'image/x-icon'),
 	('.css', 'text/css'),
+	('.js', 'text/javascript'),
 	('', 'text/plain-text')
 ]
 
@@ -15,7 +16,7 @@ class AssetRequestHandler(TriagedReuqestHandler):
 	path_regex_pattern = r"/assets/"
 
 	def get_asset_content_type(self, filename):
-		for suffix, content_type in ASSET_CONTENT_TYPE_BY_PREFIX:
+		for suffix, content_type in ASSET_CONTENT_TYPE_BY_SUFFIX:
 			if filename[-len(suffix):] == suffix:
 				return content_type
 		return content_type

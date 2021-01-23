@@ -4,31 +4,32 @@ import os
 import urllib.parse
 
 from params.server import MUSIC_LIBRARY_PATH
+from params.assets import (
+	BROWSE_MEDIA_PAGE_HTML,
+	MEDIA_ITEM,
+)
 
 class FileSystemRequestHandler(TriagedReuqestHandler):
 	debug_message = "File system request received"
 	path_regex_pattern = r"/browse/"
 
 	def format_directory(self, directory_name):
-		return f"""<p>
-			<a class="btn btn-primary" href="{self.path_regex_pattern}{self.unquoted_path}{directory_name}/">
-			{directory_name}/
-			</a>
-			</p>"""
+		return MEDIA_ITEM.format(
+			link_url=f"{self.path_regex_pattern}{self.unquoted_path}{directory_name}/",
+			link_text=f"{directory_name}/"
+		)
 
 	def format_file(self, file_name):
-		return f"""<p>
-			<a class="btn btn-primary" href="/play/{self.unquoted_path}/{file_name}">
-			{file_name}
-			</a>
-			</p>"""
+		return MEDIA_ITEM.format(
+			link_url=f"/play/{self.unquoted_path}/{file_name}",
+			link_text=f"{file_name}/"
+		)
 
 	def format_play_all(self):
-		return f"""<p>
-			<a class="btn btn-primary" href="/play/{self.unquoted_path}">
-			🎶🎶🎶 PLAY ALL FILES 🎶🎶🎶
-			</a>
-			</p>"""
+		return MEDIA_ITEM.format(
+			link_url=f"/play/{self.unquoted_path}",
+			link_text="🎶🎶🎶 PLAY ALL FILES 🎶🎶🎶"
+		)
 
 	def _execute(self):
 		self.unquoted_path = urllib.parse.unquote(self.request.path[len(self.path_regex_pattern):])
@@ -53,20 +54,6 @@ class FileSystemRequestHandler(TriagedReuqestHandler):
 
 		self.response = 200
 		self.response_headers['Content-Type'] = 'text/html; charset=UTF-8'
-		self.response_text = f"""
-		<html>
-			<head>
-				<title>Browsing Mediabox</title>
-				<link href="/assets/factory.css" rel="stylesheet">
-				<link href="/assets/favicon.ico" rel="icon">
-			</head>
-			<body>
-			<div filelist>
-			{directory_contents_formatted}
-			</div filelist>
-			</body>
-		</html>
-		"""
-
-
-
+		self.response_text = BROWSE_MEDIA_PAGE_HTML.format(
+			media_items_list=directory_contents_formatted
+		)

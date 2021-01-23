@@ -6,8 +6,8 @@
 
 		<title>Mediabox</title>
 
-		<link href="./assets/factory.css" rel="stylesheet">
-		<link href="./assets/favicon.ico" rel="icon">
+		<link href="/assets/factory.css" rel="stylesheet">
+		<link href="/assets/favicon.ico" rel="icon">
 
 	</head>
 	<body>
@@ -28,6 +28,11 @@
 		</div>
 	<script>
 		function httpGetAsyncNoCallback(url) {
+			var httpRequest = new XMLHttpRequest();
+			httpRequest.open('GET', url, true);
+			httpRequest.send(null);
+		};
+		function httpGetAsyncAndRedirect(get_url, redirect_url){
 			var httpRequest = new XMLHttpRequest();
 			httpRequest.open('GET', url, true);
 			httpRequest.send(null);
