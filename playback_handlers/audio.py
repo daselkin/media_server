@@ -16,5 +16,5 @@ class AudioController(Borg, PulseAudioController, AudaciousController):
 		self.playlist = Playlist()
 
 	def load_file(self, file_name: str, enqueue: bool = False) -> None:
-		AudaciousController.load_file(file_name)
-		self.playlist.set_file_or_directory(file_name, enqueue)
+		AudaciousController.load_file(self, file_name)
+		self.playlist.add_file_or_directory(file_name, enqueue)
