@@ -33,6 +33,7 @@ class YoutubeVideo:
 
 def search_youtube(search_string: str) -> list:
 	"Search youtube, return a list of video IDs"
+	logging.debug(f"Querying youtube for search query '{search_string}'")
 	r = requests.get(
 		url=SEARCH_URL,
 		params={
@@ -48,6 +49,8 @@ def search_youtube(search_string: str) -> list:
 
 
 def list_videos(video_ids: list) -> list:
+	"Query youtube for video IDs, return YoutubeVideo objects"
+	logging.debug(f"Requesting data on {len(video_ids)} video IDs: {video_ids}")
 	r = requests.get(
 		url=LIST_URL,
 		params={
