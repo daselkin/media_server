@@ -13,13 +13,15 @@ from .play_tracks import PlayTracksRequestHandler
 from .file_system_request import FileSystemRequestHandler
 from .unknown_request import UnknownRequestHandler
 from .player_controls import PlayerControlsRequestHandler
+from .youtube_search import YoutubeSearchHandler
 from .youtube_handler import YouTubeRequestHandler
 
 TRIAGE_ORDER = (
 	EmptyRequestHandler,
 	AssetRequestHandler,
 	PlayTracksRequestHandler,
-	FileSystemRequestHandler,	
+	FileSystemRequestHandler,
+	YoutubeSearchHandler,	
 	PlayerControlsRequestHandler,
 	YouTubeRequestHandler,
 	UnknownRequestHandler,

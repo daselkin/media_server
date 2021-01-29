@@ -24,12 +24,16 @@ class YoutubeVideo:
 		self.description = json_object['snippet']['description']
 		self.thumbnail_url = json_object['snippet']['thumbnails']['default']
 		self.duration = json_object['contentDetails']['duration']
-		self.is_music_video = '/m/04rlf' in json_object['topicDetails']['relevantTopicIds']
-		self.genres = [
-			GENRES[topic_id]
-			for topic_id in json_object['topicDetails']['relevantTopicIds']
-			if topic_id in GENRES
-		]
+		if 'topicDetails' in json_object:
+			self.is_music_video = '/m/04rlf' in json_object['topicDetails']['relevantTopicIds']
+			self.genres = [
+				GENRES[topic_id]
+				for topic_id in json_object['topicDetails']['relevantTopicIds']
+				if topic_id in GENRES
+			]
+		else:
+			self.is_music_video = False
+			self.genres = []
 
 def search_youtube(search_string: str) -> list:
 	"Search youtube, return a list of video IDs"
@@ -66,6 +70,15 @@ def list_videos(video_ids: list) -> list:
 	else:
 		raise YoutubeAPIException(f"{r.status_code}: {r.text}")
 
+
+class YoutubeVideoSearch:
+	def __init__(self, query):
+		self.query = query
+		self.results = []
+
+	def search(self):
+		result_ids = search_youtube(self.query)
+		self.results = list_videos(result_ids)
 
 
 def download_music_from_youtube(youtube_url: str, download_path: str) -> str:

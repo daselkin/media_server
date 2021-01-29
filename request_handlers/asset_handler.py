@@ -8,6 +8,7 @@ ASSET_CONTENT_TYPE_BY_SUFFIX = [
 	('.ico', 'image/x-icon'),
 	('.css', 'text/css'),
 	('.js', 'text/javascript'),
+	('.html', 'text/html; charset=UTF-8'),
 	('', 'text/plain-text')
 ]
 
