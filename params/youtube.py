@@ -1,11 +1,14 @@
 API_KEY = open('keychain/youtube_api_key', 'r').read().strip()
 API_URL_ROOT = "https://www.googleapis.com/youtube/v3"
 
+MUSIC_TOPIC = '/m/04rlf'
+
 SEARCH_URL = f"{API_URL_ROOT}/search"
 DEFAULT_SEARCH_PARAMS = {
 	"type": "video",
 	"maxResults": 25,
 	"key": API_KEY,
+	"topicId": MUSIC_TOPIC,
 }
 
 LIST_URL = f"{API_URL_ROOT}/videos"
@@ -14,7 +17,6 @@ DEFAULT_LIST_PARAMS = {
 	'key': API_KEY,
 }
 
-MUSIC_TOPIC = '/m/04rlf'
 GENRES = {
 	'/m/05fw6t': "Children's Music",
 	'/m/02mscn': "Christian",
